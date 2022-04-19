@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pymongo
+jwt
+pydantic
+passlib
+python-multipart
+one
+bcrypt
+cryptography
+python-jose
+motor==2.0.0
+starlette
+requests
