@@ -44,4 +44,12 @@ async def get_deals_anonymously(sector: str):
         headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
         return json.loads(deals_response.text)
     except Exception as e:
+        raise Internal_exception
+
+async def get_deal_by_id(id: str):
+    try:
+        deal_response = requests.get(f"{BANK_API_URL}/deals/deal_id/{id}", 
+        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+        return json.loads(deal_response.text)
+    except Exception as e:
         raise Internal_exception 

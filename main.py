@@ -48,4 +48,4 @@ async def before_server_stop():
     db_adapter.client.close()
 
 if __name__ == '__main__':  # For Debugging
-    uvicorn.run(app, host='0.0.0.0', port=5000) 
+    uvicorn.run(app, host='0.0.0.0', port=5000)

@@ -19,3 +19,15 @@ class CompanyMonthlyPrice(BaseModel):
     price: int
     year: int
     month: int
+
+class Deal(BaseModel):
+    company: str
+    # can be Communication, TV, insurance
+    sector: str
+    extra_info: dict
+
+class UserDeal(Deal):
+    username: str
+    account_number: str
+    new_price: Optional[int] = 0
+    status: Optional[str] = "Open"
