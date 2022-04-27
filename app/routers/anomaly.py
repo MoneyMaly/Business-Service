@@ -61,3 +61,9 @@ async def get_monthly_balance_by_user(username: str, account_number: str, from_y
         if await detect_anomaly(deal_total_payment):
             anomaly_list.append(deal_total_payment)
     return anomaly_list
+
+@router.get("/users/{username}/bankaccounts/{account_number}/deals/companies/{company}/ratio",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
+async def get_monthly_balance_by_user(username: str, account_number: str, company: str):
+    if JWTBearer.authenticated_username != username:
+        raise credentials_exception
+    return {"company": company, "percentile"מיקו: 10 }
