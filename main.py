@@ -30,7 +30,7 @@ async def exception_handler(request, exception: Exception):
 
 async def setup_db():
     url = f'mongodb://{DATABASE_USER}:{quote_plus(DATABASE_PASSWORD)}@{DATABASE_SERVER}:{DATABASE_PORT}' \
-          f'/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@tal-project-db@'
+          f'/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@money-maly@'
     db_adapter.client = motor_asyncio.AsyncIOMotorClient(url, w='majority', socketTimeoutMS=5000, j=True, wtimeout=5000)
     return db_adapter.client[DATABASE_NAME]
 

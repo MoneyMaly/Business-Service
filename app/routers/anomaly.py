@@ -46,6 +46,7 @@ async def get_monthly_balance_by_user(username: str, account_number: str, from_y
     deals = await get_deals_list(username, account_number)
     anomaly_list = []
     for deal in deals:
+        from_date = datetime(from_year, from_month, 1)
         deal_total_payment = DealPayment(company=deal["company"], sector=deal['sector'], payments=[])
         while from_date <= to_date:
         # get deal current price
