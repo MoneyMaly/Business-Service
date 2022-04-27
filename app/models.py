@@ -31,3 +31,4 @@ class UserDeal(Deal):
     account_number: str
     new_price: Optional[int] = 0
     status: Optional[str] = "Open"
+    business_phone: Optional[str] = 100
