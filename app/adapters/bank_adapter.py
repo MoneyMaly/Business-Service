@@ -36,4 +36,12 @@ async def get_deal_monthly_price(username: str, account_number: str, company:str
         headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
         return json.loads(deal_price_response.text)
     except Exception as e:
+        raise Internal_exception
+
+async def get_deals_anonymously(sector: str):
+    try:
+        deals_response = requests.get(f"{BANK_API_URL}/deals/sectors/{sector}", 
+        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+        return json.loads(deals_response.text)
+    except Exception as e:
         raise Internal_exception 

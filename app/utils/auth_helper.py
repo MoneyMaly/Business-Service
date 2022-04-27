@@ -35,6 +35,7 @@ class JWTBearer(HTTPBearer):
             if not decoded_token["exp"] >= time.time():
                 raise
             JWTBearer.authenticated_username =  decoded_token["username"]
+            JWTBearer.role = decoded_token["role"]
             JWTBearer.jwtoken = jwtoken
         except:
             decoded_token = None

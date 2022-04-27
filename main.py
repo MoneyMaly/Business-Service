@@ -6,7 +6,7 @@ from motor import motor_asyncio
 from passlib.context import CryptContext
 from starlette.responses import JSONResponse
 
-from app.routers import anomaly
+from app.routers import anomaly, offers
 from app.adapters import  db_adapter
 from app.settings import DATABASE_USER, DATABASE_PORT, DATABASE_PASSWORD, DATABASE_SERVER, DATABASE_NAME
 
@@ -23,6 +23,7 @@ app.add_middleware(
 )
 # routers
 app.include_router(anomaly.router)
+app.include_router(offers.router)
 
 @app.exception_handler(Exception)
 async def exception_handler(request, exception: Exception):
