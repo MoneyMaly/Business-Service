@@ -30,4 +30,11 @@ async def get_deals_for_offer(sector: str):
     if JWTBearer.role != "business":
         raise credentials_exception
     deals = await get_deals_anonymously(sector)
-    return {"deals": deals } 
+    return {"deals": deals }
+
+@router.post("/deals/payment_ids/{_id}/prices/{price}",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
+async def get_deals_for_offer(_id: str, price : int ):
+    if JWTBearer.role != "business":
+        raise credentials_exception
+    #deals = await get_deals_anonymously(sector)
+    return True 
