@@ -66,4 +66,4 @@ async def get_monthly_balance_by_user(username: str, account_number: str, from_y
 async def get_monthly_balance_by_user(username: str, account_number: str, company: str):
     if JWTBearer.authenticated_username != username:
         raise credentials_exception
-    return {"company": company, "percentile"מיקו: 10 }
+    return {"company": company, "percentile": 10 }
