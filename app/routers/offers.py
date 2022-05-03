@@ -8,7 +8,7 @@ import json
 
 from app.utils.auth_helper import JWTBearer
 from app.adapters.bank_adapter import get_deals_anonymously, get_deal_by_id
-from app.adapters.db_adapter import create_offer, get_offers
+from app.adapters.db_adapter import create_offer, get_offers, update_offer
 from app.models import DealPayment, MonthlyPayment, UserDeal
 
 router = APIRouter(tags=['Business Offers'])
@@ -49,4 +49,11 @@ async def get_users_offers(username: str, account_number: str, offer_status: str
     if JWTBearer.authenticated_username != username:
         raise credentials_exception
     offers = await get_offers(username, account_number, offer_status)
-    return offers 
+    return offers
+
+@router.put("/users/{username}/bankaccounts/{account_number}/offers/companies/{company}/offer_status/{offer_status}",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
+async def update_users_offers_status(username: str, account_number: str, offer_status: str, company: str, new_price: int, business_phone: str):
+    if JWTBearer.authenticated_username != username:
+        raise credentials_exception
+    offers = await update_offer(username, account_number, offer_status, company, new_price, business_phone)
+    return offers

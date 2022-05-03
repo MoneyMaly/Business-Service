@@ -27,7 +27,7 @@ Internal_exception = HTTPException(
 
 async def detect_anomaly(deal_payment: DealPayment):
     for i in range(0,(len(deal_payment.payments)-1)):
-        if deal_payment.payments[i].price < deal_payment.payments[i+1].price:
+        if deal_payment.payments[i].price > deal_payment.payments[i+1].price:
             return True
     return False
 

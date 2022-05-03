@@ -16,6 +16,11 @@ async def get_offers(username: str, account_number: str, offer_status: str):
     offers = await db["BusinessOffers"].find({"status":offer_status, "account_number": account_number, "username": username}).to_list(length=10)
     return list(offers)
 
+async def update_offer(username: str, account_number: str, offer_status: str, company: str, new_price: int, business_phone: str):
+    offer = await db["BusinessOffers"].update_one({"username": username, "account_number": account_number, 
+    "company": company, "new_price": new_price, "business_phone":business_phone},{"$set":{"status":offer_status}})
+    return True
+
 # async def get_bank_accounts_list_by_username(username: str):
 #     bank_accounts = await db["UsersBankAccounts"].find({"username":username}).to_list(length=5)
 #     return list(bank_accounts)
