@@ -32,7 +32,7 @@ async def get_deals_list(username: str, account_number: str):
 
 async def get_deal_monthly_price(username: str, account_number: str, company:str, current_year:int, current_month: int):
     try:
-        deal_price_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/company/{company}/?month={current_month}&year={current_year}", 
+        deal_price_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/company/{company}?month={current_month}&year={current_year}", 
         headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
         return json.loads(deal_price_response.text)
     except Exception as e:
