@@ -44,11 +44,11 @@ async def get_deals_for_offer(id: str, price : int, business_phone: str ):
     offer = await create_offer(deal)
     return True
 
-@router.get("/users/{username}/bankaccounts/{account_number}/offers/offer_status/{offer_status}", response_model=List[UserDeal], response_model_exclude=['_id'] ,status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
-async def get_users_offers(username: str, account_number: str, offer_status: str):
+@router.get("/users/{username}/offers/offer_status/{offer_status}", response_model=List[UserDeal], response_model_exclude=['_id'] ,status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
+async def get_users_offers(username: str, offer_status: str):
     if JWTBearer.authenticated_username != username:
         raise credentials_exception
-    offers = await get_offers(username, account_number, offer_status)
+    offers = await get_offers(username, offer_status)
     return offers
 
 @router.put("/users/{username}/bankaccounts/{account_number}/offers/companies/{company}/offer_status/{offer_status}",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])

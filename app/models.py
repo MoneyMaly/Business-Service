@@ -14,6 +14,13 @@ class DealPayment(BaseModel):
     sector: str
     payments: list
 
+class AccountAnomaly(BaseModel):
+    account_number: str
+    owner: str
+    anomalies_count: Optional[int] = 0
+class TotalAnomaly(BaseModel):
+    username: str
+    accounts_anomaly: list
 class CompanyMonthlyPrice(BaseModel):
     company: str
     price: int

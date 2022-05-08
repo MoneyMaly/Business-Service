@@ -12,8 +12,8 @@ async def create_offer(new_deal: UserDeal):
     offer = await db["BusinessOffers"].insert_one(new_deal.__dict__)
     return True
 
-async def get_offers(username: str, account_number: str, offer_status: str):
-    offers = await db["BusinessOffers"].find({"status":offer_status, "account_number": account_number, "username": username}).to_list(length=10)
+async def get_offers(username: str, offer_status: str):
+    offers = await db["BusinessOffers"].find({"status":offer_status, "username": username}).to_list(length=10)
     return list(offers)
 
 async def update_offer(username: str, account_number: str, offer_status: str, company: str, new_price: int, business_phone: str):
