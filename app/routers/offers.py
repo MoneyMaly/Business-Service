@@ -34,7 +34,7 @@ async def get_deals_for_offer(sector: str):
     return {"deals": deals }
 
 @router.post("/deals/deal_id/{id}/prices/{price}",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
-async def get_deals_for_offer(id: str, price : int, business_phone: str ):
+async def create_deal_for_offer(id: str, price : int, business_phone: str ):
     if JWTBearer.role != "business":
         raise credentials_exception
     deal = await get_deal_by_id(id)
