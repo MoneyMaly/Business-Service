@@ -13,7 +13,11 @@ async def create_offer(new_deal: UserDeal):
     return True
 
 async def get_offers(username: str, offer_status: str):
-    offers = await db["BusinessOffers"].find({"status":offer_status, "username": username}).to_list(length=10)
+    offers = await db["BusinessOffers"].find({"status":offer_status, "username": username}).to_list(length=20)
+    return list(offers)
+
+async def get_offers_for_business(phone: str):
+    offers = await db["BusinessOffers"].find({"business_phone": phone},{'_id':0}).to_list(length=20)
     return list(offers)
 
 async def update_offer(username: str, account_number: str, offer_status: str, company: str, new_price: int, business_phone: str):

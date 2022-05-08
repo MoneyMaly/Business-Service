@@ -8,8 +8,8 @@ import json
 
 from app.utils.auth_helper import JWTBearer
 from app.adapters.bank_adapter import get_deals_anonymously, get_deal_by_id
-from app.adapters.db_adapter import create_offer, get_offers, update_offer
-from app.models import DealPayment, MonthlyPayment, UserDeal
+from app.adapters.db_adapter import create_offer, get_offers, update_offer, get_offers_for_business
+from app.models import DealPayment, MonthlyPayment, UserDeal, BusinessDeals
 
 router = APIRouter(tags=['Business Offers'])
 
@@ -32,6 +32,24 @@ async def get_deals_for_offer(sector: str):
         raise credentials_exception
     deals = await get_deals_anonymously(sector)
     return {"deals": deals }
+
+@router.get("/offers/business_phone/{phone}",status_code=status.HTTP_200_OK, response_model=BusinessDeals, response_model_exclude=['_id'], dependencies=[Depends(JWTBearer())])
+async def get_business_offer(phone: str):
+    if JWTBearer.role != "business":
+        raise credentials_exception
+    business_deals = BusinessDeals(business_phone=phone)
+    business_deals.offers =  await get_offers_for_business(phone)
+    for offer in business_deals.offers:
+        if offer['status'] == 'Rejected':
+            business_deals.rejected_list.append(offer.copy())
+        if offer['status'] == 'Opened':
+            business_deals.opened_list.append(offer.copy())
+        if offer['status'] == 'Accepted':
+            business_deals.accepted_list.append(offer.copy())
+    business_deals.accepted_count = len(business_deals.accepted_list)
+    business_deals.opened_count = len(business_deals.opened_list)
+    business_deals.rejected_count = len(business_deals.rejected_list)
+    return business_deals
 
 @router.post("/deals/deal_id/{id}/prices/{price}",status_code=status.HTTP_200_OK, dependencies=[Depends(JWTBearer())])
 async def create_deal_for_offer(id: str, price : int, business_phone: str ):

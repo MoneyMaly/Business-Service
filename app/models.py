@@ -39,3 +39,13 @@ class UserDeal(Deal):
     new_price: Optional[int] = 0
     status: Optional[str] = "Open"
     business_phone: Optional[str] = 100
+
+class BusinessDeals(BaseModel):
+    business_phone: str
+    rejected_count: Optional[int] = 0
+    opened_count: Optional[int] = 0
+    accepted_count: Optional[int] = 0
+    rejected_list: Optional[list] = []
+    opened_list: Optional[list] = []
+    accepted_list: Optional[list] = []
+    offers: Optional[list]= []
