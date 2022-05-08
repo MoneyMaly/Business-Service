@@ -42,7 +42,7 @@ async def get_business_offer(phone: str):
     for offer in business_deals.offers:
         if offer['status'] == 'Rejected':
             business_deals.rejected_list.append(offer.copy())
-        if offer['status'] == 'Opened':
+        if offer['status'] == 'Open':
             business_deals.opened_list.append(offer.copy())
         if offer['status'] == 'Accepted':
             business_deals.accepted_list.append(offer.copy())
