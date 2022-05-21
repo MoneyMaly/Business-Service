@@ -41,6 +41,7 @@ async def validate_dates(from_date: datetime, to_date: datetime):
     return True
 
 async def account_anomaly_detector(from_year: int, from_month: int, to_year: int, to_month: int, username:str, account_number: str):
+    print("started detector")
     from_date = datetime(from_year, from_month, 1)
     to_date = datetime(to_year, to_month, 1)
     if (await validate_dates(from_date, to_date)):
@@ -57,6 +58,7 @@ async def account_anomaly_detector(from_year: int, from_month: int, to_year: int
                         monthly_payment = MonthlyPayment(price=deal_price['price'], month=from_date.month, year=from_date.year, date=deal_price['date'] )
                         deal_total_payment.payments.append(monthly_payment)
                 except Exception as e:
+                    print("Exception " + e)
                     raise Internal_exception
                 from_date += relativedelta(months=+1)
             if await detect_anomaly(deal_total_payment):
