@@ -2,7 +2,7 @@ import configparser
 import os
 
 config = configparser.ConfigParser()
-config.read(os.getenv('CONFIG_FILE', '/configs/businessconfig.ini'))
+config.read(os.getenv('CONFIG_FILE', '/configs/businessconfig.ini')) 
 
 try:
     db_section = config['db_section']
