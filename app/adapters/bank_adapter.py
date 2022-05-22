@@ -31,7 +31,7 @@ async def get_bank_accounts_list(username: str):
     accounts_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts", 
     headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
     return json.loads(accounts_response.text)
-        
+
 async def get_deal_monthly_price(username: str, account_number: str, company:str, current_year:int, current_month: int):
     deal_price_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/company/{company}?month={current_month}&year={current_year}", 
     headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
