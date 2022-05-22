@@ -23,41 +23,26 @@ Internal_exception = HTTPException(
 
 
 async def get_deals_list(username: str, account_number: str):
-    try:
-        deals_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/deals", 
-        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
-        return json.loads(deals_response.text)
-    except Exception as e:
-        raise Internal_exception
+    deals_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/deals", 
+    headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    return json.loads(deals_response.text)
 
 async def get_bank_accounts_list(username: str):
-    try:
-        accounts_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts", 
-        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
-        return json.loads(accounts_response.text)
-    except Exception as e:
-        raise Internal_exception
+    accounts_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts", 
+    headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    return json.loads(accounts_response.text)
         
 async def get_deal_monthly_price(username: str, account_number: str, company:str, current_year:int, current_month: int):
-    try:
-        deal_price_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/company/{company}?month={current_month}&year={current_year}", 
-        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
-        return json.loads(deal_price_response.text)
-    except Exception as e:
-        raise Internal_exception
+    deal_price_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/company/{company}?month={current_month}&year={current_year}", 
+    headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    return json.loads(deal_price_response.text)
 
 async def get_deals_anonymously(sector: str):
-    try:
-        deals_response = requests.get(f"{BANK_API_URL}/deals/sectors/{sector}", 
-        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
-        return json.loads(deals_response.text)
-    except Exception as e:
-        raise Internal_exception
+    deals_response = requests.get(f"{BANK_API_URL}/deals/sectors/{sector}", 
+    headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    return json.loads(deals_response.text)
 
 async def get_deal_by_id(id: str):
-    try:
-        deal_response = requests.get(f"{BANK_API_URL}/deals/deal_id/{id}", 
-        headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
-        return json.loads(deal_response.text)
-    except Exception as e:
-        raise Internal_exception 
+    deal_response = requests.get(f"{BANK_API_URL}/deals/deal_id/{id}", 
+    headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    return json.loads(deal_response.text)
