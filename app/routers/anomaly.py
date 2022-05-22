@@ -53,13 +53,9 @@ async def account_anomaly_detector(from_year: int, from_month: int, to_year: int
             while from_date <= to_date:
             # get deal current price
                 deal_price = await get_deal_monthly_price(username, account_number, deal["company"], from_date.year, from_date.month)
-                try:
-                    if deal_price:
-                        monthly_payment = MonthlyPayment(price=deal_price['price'], month=from_date.month, year=from_date.year, date=deal_price['date'] )
-                        deal_total_payment.payments.append(monthly_payment)
-                except Exception as e:
-                    print("Exception " + e)
-                    raise Internal_exception
+                if deal_price:
+                    monthly_payment = MonthlyPayment(price=deal_price['price'], month=from_date.month, year=from_date.year, date=deal_price['date'] )
+                    deal_total_payment.payments.append(monthly_payment)
                 from_date += relativedelta(months=+1)
             if await detect_anomaly(deal_total_payment):
                 anomaly_list.append(deal_total_payment)
