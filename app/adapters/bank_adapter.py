@@ -24,8 +24,10 @@ Internal_exception = HTTPException(
 
 async def get_deals_list(username: str, account_number: str):
     print(BANK_API_URL)
+    print(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/deals")
     deals_response = requests.get(f"{BANK_API_URL}/users/{username}/bankaccounts/{account_number}/deals", 
     headers={'Authorization':f'Bearer {JWTBearer.jwtoken}'})
+    print(deals_response.text)
     return json.loads(deals_response.text)
 
 async def get_bank_accounts_list(username: str):
